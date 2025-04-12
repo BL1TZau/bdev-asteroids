@@ -37,6 +37,10 @@ def main():
             updateables.update(dt)       # update positions
             
         for asteroid in group_asteroids:
+            for bullet in group_shots:
+                if bullet.collision(asteroid) == True:
+                    bullet.kill()   # inbuilt pygame feature removing obj from all groups
+                    asteroid.split()
             if asteroid.collision(player1) == True:
                 print('Game Over Bud')
                 sys.exit()
