@@ -1,4 +1,7 @@
 from circleshape import *
+# from random import uniform
+import random
+from constants import *
 
 class Asteroid(CircleShape):
     containers = ()
@@ -12,4 +15,14 @@ class Asteroid(CircleShape):
         self.position += (self.velocity * dt)   # both from parent circleshape
         
     def split(self):
-        self.kill()
+        self.kill() # removes asteroid from group
+        if self.radius <= ASTEROID_MIN_RADIUS: return   # end if smallest asteroid
+        angle = random.uniform(20, 50)  # generate rand between 20 - 50
+        first_split = self.velocity.rotate(angle)   # create new vec, rotate rand ang
+        second_split = self.velocity.rotate(-angle)
+        new_radius = self.radius - ASTEROID_MIN_RADIUS  # large > med > small
+        first_ast = Asteroid(self.position.x, self.position.y, new_radius)  # create first split
+        first_ast.velocity += (first_split * 1.6)   # accelerate the splits
+        second_ast = Asteroid(self.position.x, self.position.y, new_radius)
+        second_ast.velocity += (second_split * 1.6)
+        

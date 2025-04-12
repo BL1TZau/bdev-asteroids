@@ -49,7 +49,7 @@ class Player(CircleShape):
     def shoot(self):
 
         if self.icd <= 0:   # icd ready (allowed to shoot)
-            self.icd = 0.3  # reset icd
+            self.icd = 0.15  # reset icd
             bullet = Shot(self.position.x, self.position.y, SHOT_RADIUS)
             bullet.velocity = pygame.Vector2(0, 1)
             bullet.velocity.rotate_ip(self.rotation)
