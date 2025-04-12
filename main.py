@@ -1,4 +1,5 @@
 import pygame
+import sys
 from constants import *
 from player import *
 from asteroid import *
@@ -31,6 +32,11 @@ def main():
     
         for updateables in group_updateable:
             updateables.update(dt)       # update positions
+            
+        for asteroid in group_asteroids:
+            if asteroid.collision(player1) == True:
+                print('Game Over Bud')
+                sys.exit()
         
         for drawable in group_drawable:
             drawable.draw(screen)   # render p1 onto screen
