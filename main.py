@@ -6,20 +6,28 @@ def main():
     pygame.init()   # pygame initialisation
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # setting display px
     dt = 0
-    
     clock = pygame.time.Clock()
     
+    group_updateable = pygame.sprite.Group()
+    group_drawable = pygame.sprite.Group()
+    
+    Player.containers = (group_drawable, group_updateable)
     player1 = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+
+    
     
     while True:
         # makes x close window
         for event in pygame.event.get():    
             if event.type == pygame.QUIT:
                 return
-        screen.fill((0, 0, 0))  # showing colour on screen     
+        screen.fill((0, 0, 0))  # showing colour on screen  
+    
+        for updateables in group_updateable:
+            updateables.update(dt)       # update positions
         
-        player1.update(dt)      # rotates player
-        player1.draw(screen)    # render p1 onto screen
+        for drawable in group_drawable:
+            drawable.draw(screen)   # render p1 onto screen
         
         pygame.display.flip()   # refresh screen
         delta_time = clock.tick(60) # 60fps , pauses game look until arg

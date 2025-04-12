@@ -1,2 +1,1 @@
-
-        pygame.display.flip()   # refresh screen
+i
