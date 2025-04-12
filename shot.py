@@ -4,9 +4,17 @@ from random import randrange
 
 class Shot(CircleShape):
     containers = ()
+    
     def __init__(self, x, y, radius):
         super().__init__(x, y, radius)
         self.rotation = 0
+        img = './data/ships/Main ship weapons/PNGs/single_bullet.png'
+        self.image = pygame.image.load(img).convert_alpha()
+        # Get the image's rect and place it at (x, y)
+        # Positioning
+        self.position = pygame.Vector2(x, y)
+        self.rect = self.image.get_rect(center=(self.position))
+        self.radius = self.image.get_width() / 2  # optional if still using radius elsewhere
         
     def draw(self, screen):
         colour1 = randrange(0, 255)
@@ -16,6 +24,7 @@ class Shot(CircleShape):
     
     def update(self, dt):
         self.position += (self.velocity * dt)   # both from parent circleshape
+        self.rect = self.image.get_rect(center=(self.position))
 
     # rotates player
     def rotate(self, player_facing):

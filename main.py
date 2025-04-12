@@ -6,33 +6,45 @@ from asteroid import *
 from asteroidfield import *
 from shot import *
 
+# TODO: make asteroid img bigger based on their spawn size
+# TODO: player shooting
+# FIXME: asteroids go 800kmh after splitting
+
 def main():
     pygame.init()   # pygame initialisation
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # setting display px
     dt = 0
     clock = pygame.time.Clock()
     
+    # Group Creation
     group_updateable = pygame.sprite.Group()
     group_drawable = pygame.sprite.Group()
     group_asteroids = pygame.sprite.Group()
     group_shots = pygame.sprite.Group()
     
+    # Adding containers to Groups
     Player.containers = (group_drawable, group_updateable)
     Asteroid.containers = (group_drawable, group_updateable, group_asteroids)
     AsteroidField.containers = (group_updateable)
     Shot.containers = (group_shots, group_updateable, group_drawable)
+    
+    # Creating player object
     player1 = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     asteroid_field = AsteroidField()
-
     
+    # pygame.Surface.convert() with no arguments, to create a copy that will draw more quickly on the screen.
+    BACKGROUND_DIR = './data/backgrounds/custom.png'
+    background = pygame.image.load(BACKGROUND_DIR).convert() 
+    background = pygame.transform.scale(background, (1280, 720))
     
     while True:
-        # makes x close window
+        # admin - x close window
         for event in pygame.event.get():    
             if event.type == pygame.QUIT:
                 return
-        screen.fill((0, 0, 0))  # showing colour on screen  
-    
+            
+        screen.blit(background, (0, 0))
+        
         for updateables in group_updateable:
             updateables.update(dt)       # update positions
             
@@ -45,8 +57,7 @@ def main():
                 print('Game Over Bud')
                 sys.exit()
         
-        for drawable in group_drawable:
-            drawable.draw(screen)   # render p1 onto screen
+        group_drawable.draw(screen)# render p1 onto screen
         
         pygame.display.flip()   # refresh screen
         delta_time = clock.tick(60) # 60fps , pauses game look until arg
