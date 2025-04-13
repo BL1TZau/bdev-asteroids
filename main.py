@@ -5,10 +5,13 @@ from player import *
 from asteroid import *
 from asteroidfield import *
 from shot import *
+import argparse
 
-# TODO: make asteroid img bigger based on their spawn size
-# TODO: player shooting
-# FIXME: asteroids go 800kmh after splitting
+parser = argparse.ArgumentParser()
+parser.add_argument("--debug", action="store_true", help="Enable debug mode")
+args = parser.parse_args()
+
+DEBUG = args.debug
 
 def main():
     pygame.init()   # pygame initialisation
@@ -57,7 +60,12 @@ def main():
                 print('Game Over Bud')
                 sys.exit()
         
-        group_drawable.draw(screen)# render p1 onto screen
+        group_drawable.draw(screen) # render drawables
+        
+        if DEBUG:
+            # draws hitboxes
+            for sprite in group_drawable:
+                pygame.draw.circle(screen, "red", sprite.position, sprite.radius, 1)
         
         pygame.display.flip()   # refresh screen
         delta_time = clock.tick(60) # 60fps , pauses game look until arg

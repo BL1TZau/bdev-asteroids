@@ -40,7 +40,6 @@ class Player(CircleShape):
         self.rotation += PLAYER_TURN_SPEED * dt
         self.image = pygame.transform.rotate(self.original_image, -self.rotation)
         self.rect = self.image.get_rect(center=self.position)
-        print(self.rotation)
 
     def update(self, dt):
         self.icd -= dt
@@ -71,7 +70,7 @@ class Player(CircleShape):
     
     def shoot(self):
         if self.icd <= 0:   # icd ready (allowed to shoot)
-            # self.icd = 0.15  # reset icd
+            self.icd = 0.15  # reset icd
             bullet = Shot(self.position.x, self.position.y, SHOT_RADIUS)
             bullet.velocity = pygame.Vector2(0, 1)
             bullet.velocity.rotate_ip(self.rotation)
