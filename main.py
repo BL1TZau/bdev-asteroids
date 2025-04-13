@@ -7,11 +7,15 @@ from asteroidfield import *
 from shot import *
 import argparse
 
+# Debugger
 parser = argparse.ArgumentParser()
 parser.add_argument("--debug", action="store_true", help="Enable debug mode")
 args = parser.parse_args()
-
 DEBUG = args.debug
+
+# Font init
+pygame.font.init() 
+font = pygame.font.Font(None, 36)  # None = default font, 36 = size
 
 def main():
     pygame.init()   # pygame initialisation
@@ -39,6 +43,7 @@ def main():
     BACKGROUND_DIR = './data/backgrounds/custom.png'
     background = pygame.image.load(BACKGROUND_DIR).convert() 
     background = pygame.transform.scale(background, (1280, 720))
+        
     
     while True:
         # admin - x close window
@@ -46,7 +51,12 @@ def main():
             if event.type == pygame.QUIT:
                 return
             
+        # blitting
+        # asteroid background
         screen.blit(background, (0, 0))
+        # health status
+        text_surface = font.render(f'{player1.get_health()}/4 Health', True, (255, 255, 255))  # white text
+        screen.blit(text_surface, (20, 20))  # top-left corner at (x=20, y=20)
         
         for updateables in group_updateable:
             updateables.update(dt)       # update positions

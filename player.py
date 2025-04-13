@@ -32,6 +32,9 @@ class Player(CircleShape):
         
         self.ship_damage()
     
+    def get_health(self):
+        return self.health
+    
     def ship_damage(self):
         loc = './data/ships/main-ship/main-ship-bases/pngs/main_'
         # empty str to easily index with hp beneath
