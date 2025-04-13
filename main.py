@@ -57,8 +57,8 @@ def main():
                     bullet.kill()   # inbuilt pygame feature removing obj from all groups
                     asteroid.split()
             if asteroid.collision(player1) == True:
-                print('Game Over Bud')
-                sys.exit()
+                player1.take_damage()
+                asteroid.split()
         
         group_drawable.draw(screen) # render drawables
         
