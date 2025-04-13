@@ -16,11 +16,11 @@ class Shot(CircleShape):
         self.rect = self.image.get_rect(center=(self.position))
         self.radius = self.image.get_width() / 2  # optional if still using radius elsewhere
         
-    def draw(self, screen):
+    """def draw(self, screen):
         colour1 = randrange(0, 255)
         colour2 = randrange(0, 255)
         colour3 = randrange(0, 255)
-        pygame.draw.circle(screen, (colour1, colour2, colour3), self.position, self.radius, 2)
+        pygame.draw.circle(screen, (colour1, colour2, colour3), self.position, self.radius, 2)"""
     
     def update(self, dt):
         self.position += (self.velocity * dt)   # both from parent circleshape

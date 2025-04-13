@@ -13,7 +13,7 @@ class Player(CircleShape):
         # Load the image
         self.image_link = './data/ships/main-ship/main-ship-bases/pngs/main_full.png'
         self.original_image = pygame.image.load(self.image_link).convert_alpha()
-        # self.image = pygame.transform.flip(self.original_image, False, True)
+        self.original_image = pygame.transform.flip(self.original_image, False, True)
         self.image = self.original_image
         # Positioning
         self.position = pygame.Vector2(x, y)
@@ -50,9 +50,9 @@ class Player(CircleShape):
             self.rotate(-dt)
         if keys[pygame.K_d]:
             self.rotate(dt)
-        if keys[pygame.K_s]:
-            self.move(dt)
         if keys[pygame.K_w]:
+            self.move(dt)
+        if keys[pygame.K_s]:
             self.move(-dt)
         if keys[pygame.K_SPACE]:
             self.shoot()
